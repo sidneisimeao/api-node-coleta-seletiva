@@ -1,8 +1,6 @@
 import {Request, Response} from 'express';
 import knex from '../database/connection';
 
-import env from '../config/env';
-
 class LocationsController {
 
   async index(request: Request, response: Response) {
@@ -24,7 +22,7 @@ class LocationsController {
       const serializedLocations = locations.map(location => {
         return {
           ...location,
-          image_url: `${env.host}:${env.port}/uploads/${location.image}`
+          image_url: `${process.env.HOST}:${process.env.PORT}/uploads/${location.image}`
         };
       });
 
@@ -46,7 +44,7 @@ class LocationsController {
 
     const serializedLocation = {
       ...location,
-      image_url: `${env.host}:${env.port}/uploads/${location.image}`
+      image_url: `${process.env.HOST}:${process.env.PORT}/uploads/${location.image}`
     }
 
     const items = await knex('items')
